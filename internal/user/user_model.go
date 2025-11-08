@@ -1,6 +1,7 @@
 package user
 
 type User struct {
-	ID string
+	ID string `json:"id"`
+	Password string `json:"password"`
 	Likes []string
 }
