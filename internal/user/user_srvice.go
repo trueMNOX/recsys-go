@@ -3,13 +3,9 @@ package user
 import()
 
 type UserServiec struct {
-	repo *userRepository
+	repo *UserRepository
 }
 
-func NewUserService(userRepository *userRepository) *UserServiec {
-	return &UserServiec{repo: userRepository}
-}
-
-func (s *UserServiec) Register(userID string) (*User, error){
-	
+func NewUserService(UserRepository *UserRepository) *UserServiec {
+	return &UserServiec{repo: UserRepository}
 }

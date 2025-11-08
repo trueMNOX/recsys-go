@@ -6,15 +6,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type userRepository struct{
+type UserRepository struct{
 	db *gorm.DB
 }
 
-func NewUserRepository(db *gorm.DB) *userRepository {
-	return &userRepository{db : db}
+func NewUserRepository(db *gorm.DB) *UserRepository {
+	return &UserRepository{db : db}
 }
 
-func (r *userRepository) FindUserById(userid string) (*User, error){
+func (r *UserRepository) FindUserById(userid string) (*User, error){
 	var user User
 	err := r.db.Where("ID = ?", userid).First(&user).Error;
 	if err != nil {
@@ -26,10 +26,12 @@ func (r *userRepository) FindUserById(userid string) (*User, error){
 	return &user, nil
 }
 
-func (r *userRepository) LikeMovie (userID ,movieID string) (string, error){
-	user , err := r.FindUserById(userID)
-	if err != nil {
-		return "Error", nil
+func (r *UserRepository) SaveUser(user *User) error{
+	if user == nil {
+		return fmt.Errorf("user is empty")
 	}
-	
+	if err := r.db.Save(user).Error; err != nil {
+		return fmt.Errorf("save user: %w", err)
+	}
+	return nil 
 }

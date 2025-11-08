@@ -1,7 +1,7 @@
 package movie
 
 type Movie struct {
-	ID int
+	ID string
 	Title string
 	Genre string
 }
